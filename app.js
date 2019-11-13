@@ -2,7 +2,6 @@
 
 Vue.use(window.vuelidate.default);
 const {required, minLength, maxLength} = window.validators;
-history.pushState(null, null, null);
 
 const app = new Vue({
 	el: "#app",
@@ -24,7 +23,7 @@ const app = new Vue({
 		job: "",
 		category: [],
 		unique_id: 1,
-		lists: [],
+		lists: []
 	},
 	validations: {
 		id: {
@@ -120,9 +119,9 @@ const app = new Vue({
 			val === 1 ? this.woman = 0 : this.man = 0;
 		},
 		fetchAddress(){
-			const url = 'https://api.zipaddress.net/?zipcode=' + this.post;
+			const url = 'http://zipcloud.ibsnet.co.jp/api/search?zipcode=' + this.post;
 			axios.get(url).then((res) => {
-				res.data.code === 400 ? "" : this.address = res.data.data.fullAddress;
+				res.data.status === 400 ? "" : this.address = res.data.results[0].address1 + res.data.results[0].address2 + res.data.results[0].address3;
 			})
 		}
   }
