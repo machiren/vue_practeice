@@ -3,7 +3,7 @@
 Vue.use(window.vuelidate.default);
 const {required, minLength, maxLength} = window.validators;
 
-const app = new Vue({
+const vm = new Vue({
 	el: "#app",
 	data : {
 		id: "",
@@ -119,10 +119,9 @@ const app = new Vue({
 			val === 1 ? this.woman = 0 : this.man = 0;
 		},
 		fetchAddress(){
-			const url = 'http://zipcloud.ibsnet.co.jp/api/search?zipcode=' + this.post;
-			axios.get(url).then((res) => {
-				res.data.status === 400 ? "" : this.address = res.data.results[0].address1 + res.data.results[0].address2 + res.data.results[0].address3;
-			})
+			$.getJSON(
+				"http://zipcloud.ibsnet.co.jp/api/search?zipcode=" + this.post + "&callback=?",
+				function(res){res.status === 400 ? "" : vm.address = res.results[0].address1 + res.results[0].address2 + res.results[0].address3;});
 		}
   }
 });

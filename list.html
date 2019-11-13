@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>課題</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-		<link rel="stylesheet" href="kadai.css">
+		<link rel="stylesheet" href="style.css">
 </head>
 <body>
 <main>
@@ -26,17 +26,17 @@
 					<th class="button">削除</th>
 				</tr>
 				<tr v-for="(list,index) in lists" v-bind:key="list.id">
-					<td>{{list.id}}</td>
-					<td>{{list.name}}</td>
-					<td>{{list.birthday}}</td>
-					<td>{{list.gender}}</td>
-					<td>{{list.email}}</td>
-					<td>{{list.post}}</td>
-					<td>{{list.address}}</td>
-					<td>{{list.job}}</td>
-					<td><li v-for="category in list.category">{{category}}</li></td>
+					<td v-cloak>{{list.id}}</td>
+					<td v-cloak>{{list.name}}</td>
+					<td v-cloak>{{list.birthday}}</td>
+					<td v-cloak>{{list.gender}}</td>
+					<td v-cloak>{{list.email}}</td>
+					<td v-cloak>{{list.post}}</td>
+					<td v-cloak>{{list.address}}</td>
+					<td v-cloak>{{list.job}}</td>
+					<td><li v-for="category in list.category" v-cloak>{{category}}</li></td>
 					<td>
-						<button @click="deleteList(index)" class="btn btn-primary">削除</button>
+						<button @click="deleteList(index)" v-cloak class="btn btn-primary">削除</button>
 					</td>
 				</tr>
 			</table>
@@ -70,21 +70,21 @@
 											<span> 男性 </span><input v-model.trim="man" @click="change(1)" type="radio" id="man" name="gender" value="1" autocomplete="性別">
 											<span> 女性 </span><input v-model.trim="woman" @click="change(2)" type="radio" id="woman" name="gender" value="2" autocomplete="性別">
 										</div>
-										<p class="col-12" style="color: #ff0000">{{genderErrorMessage}}</p>
+										<p v-cloak class="col-12" style="color: #ff0000">{{genderErrorMessage}}</p>
 									</div>
 									<div class="form-group row">
 										<label for="email" class="col-md-4 col-form-label text-md-right">メールアドレス</label>
 										<div class="col-md-6">
 											<input v-model.trim="email" type="email" id="email" class="form-control" autocomplete="メールアドレス">
 										</div>
-										<p class="col-12" style="color: #ff0000">{{emailErrorMessage}}</p>
+										<p v-cloak class="col-12" style="color: #ff0000">{{emailErrorMessage}}</p>
 									</div>
 									<div class="form-group row">
 										<label for="post" class="col-md-4 col-form-label text-md-right">郵便番号</label>
 										<div class="col-md-6">
 											<input v-model.trim="post" id="post" class="form-control" autocomplete="郵便番号">
 										</div>
-										<p class="col-12" style="color: #ff0000">{{postErrorMessage}}</p>
+										<p v-cloak class="col-12" style="color: #ff0000">{{postErrorMessage}}</p>
 									</div>
 									<div class="form-group row">
 										<label for="address" class="col-md-4 col-form-label text-md-right">住所</label>
@@ -128,7 +128,6 @@
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vuelidate@0.7.4/dist/vuelidate.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vuelidate@0.7.4/dist/validators.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	<script src="app.js"></script>
 </body>
