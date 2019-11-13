@@ -121,7 +121,8 @@ const vm = new Vue({
 		fetchAddress(){
 			$.getJSON(
 				"http://zipcloud.ibsnet.co.jp/api/search?zipcode=" + this.post + "&callback=?",
-				function(res){res.status === 400 ? "" : vm.address = res.results[0].address1 + res.results[0].address2 + res.results[0].address3;});
+				function(res){res.status === 400 ? "" : vm.address = res.results[0].address1 + res.results[0].address2 + res.results[0].address3;}
+			);
 		}
   }
 });
