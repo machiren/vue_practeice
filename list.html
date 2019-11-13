@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>課題</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<link rel="stylesheet" href="kadai.css">
+</head>
+<body>
+<main>
+  <div class="container mt-5 mb-4" id="app">
+    <div class="row">
+			<table class="table table-hover">
+				<tr>
+					<th class="id">ID</th>
+					<th class="comment">名前</th>
+					<th class="button">生年月日</th>
+					<th class="button">性別</th>
+					<th class="button">メール</th>
+					<th class="button">郵便番号</th>
+					<th class="button">住所</th>
+					<th class="button">仕事</th>
+					<th class="button">興味</th>
+					<th class="button">削除</th>
+				</tr>
+				<tr v-for="(list,index) in lists" v-bind:key="list.id">
+					<td>{{list.id}}</td>
+					<td>{{list.name}}</td>
+					<td>{{list.birthday}}</td>
+					<td>{{list.gender}}</td>
+					<td>{{list.email}}</td>
+					<td>{{list.post}}</td>
+					<td>{{list.address}}</td>
+					<td>{{list.job}}</td>
+					<td><li v-for="category in list.category">{{category}}</li></td>
+					<td>
+						<button @click="deleteList(index)" class="btn btn-primary">削除</button>
+					</td>
+				</tr>
+			</table>
+			<div class="content">
+				<button class="js-modal-open btn btn-primary">登録</button>
+				<a href="login.html" class="btn btn-info">ログアウト</a>
+			</div>
+		</div>
+		<div class="modal js-modal">
+			<div class="modal__bg js-modal-close"></div>
+				<div class="modal__content">
+					<div class="profile--wrap_01">
+						<div class="container mt-6">
+							<div class="row justify-content-center">
+								<div class="col-md-8">
+									<div class="form-group row">
+										<label for="id" class="col-md-4 col-form-label text-md-right">氏名</label>
+										<div class="col-md-6">
+											<input v-model.trim="name" id="name" class="form-control" autocomplete="氏名" autofocus>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="birthday" class="col-md-4 col-form-label text-md-right">生年月日</label>
+										<div class="col-md-6">
+											<input v-model.trim="birthday" type="date" id="birthday" class="form-control" autocomplete="生年月日">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="gender" class="col-md-4 col-form-label text-md-right">性別</label>
+										<div class="col-md-6">
+											<span> 男性 </span><input v-model.trim="man" @click="change(1)" type="radio" id="man" name="gender" value="1" autocomplete="性別">
+											<span> 女性 </span><input v-model.trim="woman" @click="change(2)" type="radio" id="woman" name="gender" value="2" autocomplete="性別">
+										</div>
+										<p class="col-12" style="color: #ff0000">{{genderErrorMessage}}</p>
+									</div>
+									<div class="form-group row">
+										<label for="email" class="col-md-4 col-form-label text-md-right">メールアドレス</label>
+										<div class="col-md-6">
+											<input v-model.trim="email" type="email" id="email" class="form-control" autocomplete="メールアドレス">
+										</div>
+										<p class="col-12" style="color: #ff0000">{{emailErrorMessage}}</p>
+									</div>
+									<div class="form-group row">
+										<label for="post" class="col-md-4 col-form-label text-md-right">郵便番号</label>
+										<div class="col-md-6">
+											<input v-model.trim="post" id="post" class="form-control" autocomplete="郵便番号">
+										</div>
+										<p class="col-12" style="color: #ff0000">{{postErrorMessage}}</p>
+									</div>
+									<div class="form-group row">
+										<label for="address" class="col-md-4 col-form-label text-md-right">住所</label>
+										<div class="col-md-6">
+											<input v-model.trim="address" id="address" class="form-control" autocomplete="住所">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="job" class="col-md-4 col-form-label text-md-right">職業</label>
+										<div class="col-md-6">
+											<input v-model.trim="job" id="job" class="form-control" autocomplete="職業">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="category" class="col-md-4 col-form-label text-md-right">興味のあるカテゴリ</label>
+										<div class="col-md-6">
+											<select v-model.trim="category" id="category" multiple size="5">
+												<option value="音楽">音楽</option>
+												<option value="グルメ">グルメ</option>
+												<option value="スポーツ">スポーツ</option>
+												<option value="IT">IT</option>
+												<option value="ゲーム">ゲーム</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group row mb-0">
+										<div class="col-md-8 offset-md-4">
+											<a @click="add($v.$invalid)" id="add" class="btn btn-primary">登録</a>
+											<button @click="reset" id="reset" class="btn btn-primary">リセット</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<a class="js-modal-close" href="">閉じる</a>
+					</div>
+				</div>
+			</div>
+	</div>
+</main>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vuelidate@0.7.4/dist/vuelidate.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vuelidate@0.7.4/dist/validators.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script src="app.js"></script>
+</body>
+<script type="text/javascript">
+$(window).on("popstate", function (event) {
+  if (!event.originalEvent.state) {
+    history.pushState(null, null, null);
+    return;
+  }
+});
+$(function(){
+  $('.js-modal-open').on('click',function(){
+    $('.js-modal').fadeIn();
+    return false;
+  });
+  $('.js-modal-close').on('click',function(){
+    $('.js-modal').fadeOut();
+    return false;
+  });
+});
+
+</script>
+</html>
